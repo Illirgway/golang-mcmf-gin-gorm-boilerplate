@@ -1,0 +1,11 @@
+{
+  "listen": "127.0.0.1",
+  "port": 12345,
+  "db": "golang_cmf_boilerplate:golang_cmf_boilerplate@tcp(localhost:3306)/golang_cmf_boilerplate?charset=utf8&collation=utf8_unicode_ci&parseTime=True&loc=Local",
+  "secret": "T8u2fW*Ovl-%Spjx6fBPQRt#Yt4^&?VSnXhw8oKI5+^S$M?-a5s6mo^Pq5NUsZT8lX08Z$Dr*QOSu2H?^iAFtRmZcKmnRewk!jX|$^PjS7w^xk4hp9QKfZ@u3gl+yEl",
+  "dirs": {
+    "templates": "dist/templates/",
+    "assets": "dist/assets/"
+  },
+  "debug": true
+}
