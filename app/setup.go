@@ -8,6 +8,7 @@ package app
 
 import (
 	"errors"
+	"net/http"
 
 	"github.com/Illirgway/golang-mcmf-gin-gorm-boilerplate/utils"
 	"github.com/gin-contrib/sessions"
@@ -67,11 +68,26 @@ func (app *App) initRouter() (err error) {
 		return err
 	}
 
-	// TODO ginpprof
+	// TODO ginpprof if debug
 
 	// session store
 	{
-		store := cookie.NewStore([]byte(app.cfg.Secret))
+		store := cookie.NewStore([]byte(app.cfg.Sessions.Secret))
+
+		timeout := app.cfg.Sessions.Timeout
+
+		if timeout <= 0 {
+			timeout = 86400 * 30 // default gorilla timeout
+		}
+
+		store.Options(sessions.Options{
+			Path:     "/",
+			MaxAge:   int(timeout),
+			Secure:   true, // TODO? сделать зависимым от https бекенда?
+			HttpOnly: true,
+			SameSite: http.SameSiteLaxMode,
+		})
+
 		r.Use(sessions.Sessions("sess", store))
 	}
 

@@ -26,7 +26,7 @@ func registerControllers(app *app.App) (err error) {
 
 	// Assets if any
 	// TODO? перенести это в App?
-	if assetsDir := app.Config().Dirs.Assets; assetsDir != "" {
+	if assetsDir := app.Config().Paths.Assets; assetsDir != "" {
 
 		if assetsDir, err = filepath.Abs(assetsDir); err != nil {
 			return fmt.Errorf("assets dir path error: %w", err)

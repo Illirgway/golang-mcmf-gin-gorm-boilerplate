@@ -7,6 +7,8 @@
 package app
 
 import (
+	"html/template"
+
 	"github.com/Illirgway/golang-mcmf-gin-gorm-boilerplate/config"
 	"github.com/Illirgway/golang-mcmf-gin-gorm-boilerplate/proto"
 	"github.com/gin-gonic/gin"
@@ -14,11 +16,12 @@ import (
 )
 
 type App struct {
-	cfg      *config.Config
-	db       *gorm.DB
-	router   *gin.Engine
-	repos    repos
-	services services
+	cfg       *config.Config
+	db        *gorm.DB
+	router    *gin.Engine
+	presenter *template.Template
+	repos     repos
+	services  services
 }
 
 //go:nosplit
@@ -34,6 +37,11 @@ func (app *App) Config() *config.Config {
 //go:nosplit
 func (app *App) Router() *gin.Engine {
 	return app.router
+}
+
+//go:nosplit
+func (app *App) Presenter() *template.Template {
+	return app.presenter
 }
 
 //go:nosplit

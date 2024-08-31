@@ -39,13 +39,13 @@ func (app *App) loadTemplates() (err error) {
 
 	app.router.FuncMap = sprig.FuncMap()
 
-	t, err := thtml.LoadTemplates(app.cfg.Dirs.Templates, app.router.FuncMap)
+	app.presenter, err = thtml.LoadTemplates(app.cfg.Paths.Templates, app.router.FuncMap)
 
 	if err != nil {
 		return fmt.Errorf("App template loading error: %w", err)
 	}
 
-	app.router.SetHTMLTemplate(t)
+	app.router.SetHTMLTemplate(app.presenter)
 
 	return nil
 }

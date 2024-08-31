@@ -7,14 +7,17 @@
 package config
 
 type Config struct {
-	Listen string `json:"listen"`
-	Port   uint   `json:"port"`
-	DB     string `json:"db"`     // DSN
-	Secret string `json:"secret"` // cookie (sessions) secret
-	Dirs   struct {
+	Listen   string `json:"listen"`
+	Port     uint   `json:"port"`
+	DB       string `json:"db"` // DSN
+	Sessions struct {
+		Secret  string `json:"secret"` // cookie (sessions) secret
+		Timeout uint   `json:"timeout"`
+	} `json:"sessions"`
+	Paths struct {
 		Templates string `json:"templates"`
 		Assets    string `json:"assets"`
-	} `json:"dirs"`
+	} `json:"paths"`
 	Debug bool `json:"debug"`
 }
 
