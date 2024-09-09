@@ -7,7 +7,6 @@
 package internal
 
 import (
-	"net/http"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -41,10 +40,6 @@ func ShouldBindFormAny(ctx *gin.Context, obj any) error {
 	}
 
 	return ctx.ShouldBindWith(obj, b)
-}
-
-func AbortWithServerError(ctx *gin.Context, err error) error {
-	return ctx.AbortWithError(http.StatusInternalServerError, err)
 }
 
 func IsAjaxRequest(ctx *gin.Context) bool {

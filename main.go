@@ -19,7 +19,7 @@ import (
 //
 // bin\boilerplate.exe -c dist\config.json
 //
-// go build -v -ldflags "-s -w" -o bin\boilerplate.exe .
+// go build -v -ldflags "-s -w"  -trimpath -o bin\boilerplate.exe .
 //
 
 func main() {

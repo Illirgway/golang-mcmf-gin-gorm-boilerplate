@@ -24,6 +24,10 @@ func FailBadRequestAjax(ctx *gin.Context, err error) error {
 	return ctx.Error(err)
 }
 
+func AbortWithServerError(ctx *gin.Context, err error) error {
+	return ctx.AbortWithError(http.StatusInternalServerError, err)
+}
+
 func AbortWithServerErrorAjax(ctx *gin.Context, err error) error {
 	ctx.AbortWithStatusJSON(http.StatusInternalServerError, &JSendSrvError)
 	return ctx.Error(err)
