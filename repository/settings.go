@@ -22,7 +22,7 @@ type (
 
 type settingsCache struct {
 	list  model.SettingsList
-	index entityIndex
+	index entityIndex[model.SettingId]
 	names settingsNamesIndex
 }
 
@@ -41,7 +41,7 @@ func (r *Settings) ById(id model.SettingId) (value string, exists bool) {
 	r.lock.RLock()
 	defer r.lock.RUnlock()
 
-	idx, exists := r.cache.index[id.Raw()]
+	idx, exists := r.cache.index[id]
 
 	if !exists {
 		return "", false
@@ -183,12 +183,12 @@ func (r *Settings) fetchNoLock() (err error) {
 	}
 
 	// build indexes
-	index := makeEntityIndex(int(n))
+	index := makeEntityIndex[model.SettingId](n)
 	names := make(settingsNamesIndex, n)
 
 	for i := uint(0); i < n; i++ {
 		v := &list[i]
-		index[v.Id.Raw()] = i
+		index[v.Id] = i
 		names[v.Name] = i
 	}
 
@@ -202,7 +202,16 @@ func (r *Settings) fetchNoLock() (err error) {
 	return nil
 }
 
+func (r *Settings) fetch() (err error) {
+
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	return r.fetchNoLock()
+}
+
 func (r *Settings) Run() error {
+	// TODO проверка на double run
 	return r.fetchNoLock()
 }
 
